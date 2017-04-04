@@ -1,0 +1,40 @@
+/* main sass file. import stylesheets here */
+
+@import "main";
+@import "global";
+
+body {
+    background-color: #233c23;
+}
+
+.wrapper {
+    width: 1025px;
+    margin: 0 auto;
+}
+
+.header {
+    position: relative;
+    
+    nav {
+        position: relative;
+        height: 34px;
+        width: 100%;
+        top: -34px;
+        background-color: rgba(252, 248, 227, 0.65);
+        float: right;
+    }
+}
+.profile-img {
+    height: 400px;
+    background: {
+        image: url('/img/profile.jpg');
+        size: cover;
+        position-y: -623px;
+        position-x: center;
+    }
+    margin: 0 auto;
+}
+
+.content {
+    background-color: #fff;
+}
