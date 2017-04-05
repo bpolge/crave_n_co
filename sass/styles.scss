@@ -1,0 +1,50 @@
+/* main sass file. import stylesheets here */
+@import "global";
+@import "main";
+
+body {
+    background-color: #ccc;
+}
+
+.wrapper {
+    margin: 0 auto;
+}
+
+.header {
+    @include make-row();
+    position: relative;
+    nav {
+        position: absolute;
+        width: 100%;
+        bottom: 0px;
+        background-color: rgba(252, 248, 227, 0.65);
+    }
+
+    .profile-img {
+        @include make-lg-column(12);
+        height: 400px;
+        background: {
+            image: url('/img/crave_n_co_album_cover.jpg');
+            size: cover;
+            position-x: center;
+        }
+    }
+}
+
+.content {
+    background-color: #fff;
+    @include make-row();
+    
+    .posts-column{
+        @include make-lg-column(9);
+        background-color: lightblue;
+        background-clip: content-box;
+    }
+    
+    .sidebar {
+        @include make-lg-column(3);
+        min-height: 400px;
+        background-color: lightcyan;
+        background-clip: content-box;
+    }
+}
