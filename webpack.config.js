@@ -1,8 +1,16 @@
 const webpack = require('webpack');
 const path = require('path');
 
+function merge(obj) {
+  const devServer = Object.assign({}, config.devServer, obj.devServer);
+  return Object.assign({}, config, obj, {devServer});
+}
+
 const config = {
   devtool: 'source-map',
+  devServer: {
+    contentBase: path.resolve(__dirname, 'public'),
+  },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     // enable HMR globally
@@ -12,15 +20,39 @@ const config = {
   ],
 };
 
+let photos = {
+  entry: {
+    app: path.resolve(__dirname, 'src', 'pages', 'photos', 'index.js'),
+  },
+  output: {
+    path: path.resolve(__dirname, 'public', 'js'),
+    publicPath: '/js/',
+    filename: 'photos.js',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js?/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+      },
+    ],
+  },
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
+};
+photos = merge(photos);
+
 let sass = {
   devServer: {
     publicPath: '/css/',
   },
   entry: {
-    app: path.resolve(__dirname, 'sass', 'styles.scss'),
+    app: path.resolve(__dirname, 'src', 'sass', 'styles.scss'),
   },
   output: {
-    path: path.resolve(__dirname, 'css'),
+    path: path.resolve(__dirname, 'public', 'css'),
     publicPath: '/css/',
     filename: 'styles.js',
   },
@@ -48,8 +80,7 @@ let sass = {
     ],
   },
 };
-sass = Object.assign(config, sass);
-
+sass = merge(sass);
 // const hbs = {
 //   module: {
 //     loaders: [
@@ -58,4 +89,4 @@ sass = Object.assign(config, sass);
 //   }
 // };
 
-module.exports = sass;
+module.exports = [sass, photos];
